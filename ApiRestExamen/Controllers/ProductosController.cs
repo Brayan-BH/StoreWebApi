@@ -6,7 +6,7 @@ namespace ApiRestExamen.Controllers
 {
     [Controller]
     [Route("/api/v1/productos")]
-    public class ProductosController : ControllerBase
+    public class ProductosController: ControllerBase
     {
         private readonly MyDbContext db;
         //Acceso a las base de datos ya no setea la configuracion a cada rato
@@ -32,6 +32,7 @@ namespace ApiRestExamen.Controllers
             Producto? producto = db.Productos
                 .Where(p => p.id == id)
                 .FirstOrDefault();
+
             if (producto == null)
             {
                 return NotFound(new {message = "Producto no encontrado con el id: "+ id});
@@ -83,7 +84,7 @@ namespace ApiRestExamen.Controllers
                 .FirstOrDefault();
             if (producto == null)
             {
-                return NotFound(new { message = "Alumno no encontrado con el id: " + id });
+                return NotFound(new { message = "Producto no encontrado con el id: " + id });
 
             }
             db.Productos.Remove(producto);

@@ -33,13 +33,13 @@ namespace ApiRestExamen.Controllers
 
             var producto = db.Productos
                 .Where(p => p.categoria_id == id);
+
             if (producto == null)
             {
                 return NotFound(new { message = "Producto no encontrado con el id: " + id });
 
             }
 
-            List<Producto> productos = db.Productos.ToList();
             return Ok(producto);
         }
 

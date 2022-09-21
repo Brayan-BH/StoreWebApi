@@ -10,6 +10,7 @@ namespace ApiRestExamen.MyDb.Contexts
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Marca> Marcas { get; set; }
+        public DbSet<ProductoCaracteristica> ProductoCaracteristica { get; set; }
 
 
     }
