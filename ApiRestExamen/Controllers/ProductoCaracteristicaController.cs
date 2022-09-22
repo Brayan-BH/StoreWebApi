@@ -43,12 +43,18 @@ namespace ApiRestExamen.Controllers
 
         //Registrar
         [HttpPost]
-        [Route("")]
-        public ActionResult Crear([FromBody] ProductoCaracteristica productoCaracteristica)
+        [Route("{productoId}/caracteristica")]
+        public ActionResult Crear([FromRoute] int productoId,[FromBody] ProductoCaracteristica productoCaracteristica)
         {
+
             db.ProductoCaracteristica.Add(productoCaracteristica);
             db.SaveChanges();
             return Ok(productoCaracteristica);
+
+            if(productoCaracteristica == null)
+            {
+                return NotFound(new { message = "El producto con el  id: " + productoId + "no se puede insertar" });
+            }
 
         }
 
@@ -74,15 +80,15 @@ namespace ApiRestExamen.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public ActionResult Eliminar([FromRoute] int id)
+        [Route("{productoId}/caracteristica/{caracteristicaId}")]
+        public ActionResult Eliminar([FromRoute] int productoId, int caracteristicaId)
         {
-            ProductoCaracteristica? productoCaracteristica = db.ProductoCaracteristica
-                  .Where(pc => pc.id == id)
+            var productoCaracteristica = db.ProductoCaracteristica
+                  .Where(pc => pc.producto_id == productoId)
                   .FirstOrDefault();
             if (productoCaracteristica == null)
             {
-                return NotFound(new { message = "Producto no encontrado con el id: " + id });
+                return NotFound(new { message = "Producto no encontrado con el id: " + productoId });
 
             }
             db.ProductoCaracteristica.Remove(productoCaracteristica);
